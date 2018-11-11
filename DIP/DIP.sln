@@ -13,6 +13,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FourierTransformation", "Fo
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ImageDistortion", "ImageDistortion\ImageDistortion.vcxproj", "{117A35FA-C4D3-4567-96D3-C0E77B93764E}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HistogramEqualization", "HistogramEqualization\HistogramEqualization.vcxproj", "{AFED485A-F67E-408A-A332-8B36F4170291}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -61,6 +63,14 @@ Global
 		{117A35FA-C4D3-4567-96D3-C0E77B93764E}.Release|x64.Build.0 = Release|x64
 		{117A35FA-C4D3-4567-96D3-C0E77B93764E}.Release|x86.ActiveCfg = Release|Win32
 		{117A35FA-C4D3-4567-96D3-C0E77B93764E}.Release|x86.Build.0 = Release|Win32
+		{AFED485A-F67E-408A-A332-8B36F4170291}.Debug|x64.ActiveCfg = Debug|x64
+		{AFED485A-F67E-408A-A332-8B36F4170291}.Debug|x64.Build.0 = Debug|x64
+		{AFED485A-F67E-408A-A332-8B36F4170291}.Debug|x86.ActiveCfg = Debug|Win32
+		{AFED485A-F67E-408A-A332-8B36F4170291}.Debug|x86.Build.0 = Debug|Win32
+		{AFED485A-F67E-408A-A332-8B36F4170291}.Release|x64.ActiveCfg = Release|x64
+		{AFED485A-F67E-408A-A332-8B36F4170291}.Release|x64.Build.0 = Release|x64
+		{AFED485A-F67E-408A-A332-8B36F4170291}.Release|x86.ActiveCfg = Release|Win32
+		{AFED485A-F67E-408A-A332-8B36F4170291}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
