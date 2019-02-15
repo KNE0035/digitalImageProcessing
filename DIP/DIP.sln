@@ -19,6 +19,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PerspectiveTransform", "per
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Tomograph", "Tomograph\Tomograph.vcxproj", "{0D2B08FB-6BC3-4529-9723-C89881C819DE}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ObjectFeaturesDetection", "ObjectFeaturesDetection\ObjectFeaturesDetection.vcxproj", "{637665BE-BE01-46AA-BA76-51D267F100BB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -91,6 +93,14 @@ Global
 		{0D2B08FB-6BC3-4529-9723-C89881C819DE}.Release|x64.Build.0 = Release|x64
 		{0D2B08FB-6BC3-4529-9723-C89881C819DE}.Release|x86.ActiveCfg = Release|Win32
 		{0D2B08FB-6BC3-4529-9723-C89881C819DE}.Release|x86.Build.0 = Release|Win32
+		{637665BE-BE01-46AA-BA76-51D267F100BB}.Debug|x64.ActiveCfg = Debug|x64
+		{637665BE-BE01-46AA-BA76-51D267F100BB}.Debug|x64.Build.0 = Debug|x64
+		{637665BE-BE01-46AA-BA76-51D267F100BB}.Debug|x86.ActiveCfg = Debug|Win32
+		{637665BE-BE01-46AA-BA76-51D267F100BB}.Debug|x86.Build.0 = Debug|Win32
+		{637665BE-BE01-46AA-BA76-51D267F100BB}.Release|x64.ActiveCfg = Release|x64
+		{637665BE-BE01-46AA-BA76-51D267F100BB}.Release|x64.Build.0 = Release|x64
+		{637665BE-BE01-46AA-BA76-51D267F100BB}.Release|x86.ActiveCfg = Release|Win32
+		{637665BE-BE01-46AA-BA76-51D267F100BB}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
