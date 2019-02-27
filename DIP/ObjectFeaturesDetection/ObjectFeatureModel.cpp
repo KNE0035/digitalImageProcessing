@@ -39,11 +39,11 @@ double ObjectFeatureModel::getFeature(FeatureIndex featureIndex) {
 	return this->featuresValueMap[featureIndex];
 }
 
-double ObjectFeatureModel::getM01() {
+long ObjectFeatureModel::getM01() {
 	return m01;
 }
 
-double ObjectFeatureModel::getM10() {
+long ObjectFeatureModel::getM10() {
 	return m10;
 }
 
@@ -66,9 +66,12 @@ std::string ObjectFeatureModel::toString() {
 				ss << "Perimeter: ";
 				break;
 		}
-		
+
 		ss << this->featuresValueMap[i] << ", ";
 	}
+
+	ss << "m01: " << this->m01;
+	ss << "m10: " << this->m10;
 	ss << "]";
 	return ss.str();
 }

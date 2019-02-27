@@ -3,7 +3,7 @@
 #pragma once
 
 #include "pch.h"
-enum FeatureIndex { area = 1, massCenterX = 2, massCenterY = 3, perimeter = 4 };
+enum FeatureIndex { area = 1, massCenterX = 2, massCenterY = 3, perimeter = 4, F1 = 5, F2 = 6 };
 
 class ObjectFeatureModel
 {
@@ -16,8 +16,8 @@ public:
 	void contributeToM10(int contribution);
 
 	double getFeature(FeatureIndex featureIndex);
-	double getM01();
-	double getM10();
+	long getM01();
+	long getM10();
 
 	std::string toString();
 
@@ -25,8 +25,8 @@ public:
 	~ObjectFeatureModel();
 private: 
 	std::map<int, double> featuresValueMap;
-	int m01;
-	int m10;
+	long m01;
+	long m10;
 };
 
 #endif // !OBJECT_FEATURE_MODEL
