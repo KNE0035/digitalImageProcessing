@@ -3,30 +3,37 @@
 #pragma once
 
 #include "pch.h"
-enum FeatureIndex { area = 1, massCenterX = 2, massCenterY = 3, perimeter = 4, F1 = 5, F2 = 6 };
+enum FeatureIndex { 
+	m00 = 1,
+	m01 = 2,
+	m10 = 3,
+	massCenterX = 4, 
+	massCenterY = 5, 
+	perimeter = 6,
+	mMassCenter11 = 7,
+	mMassCenter02 = 8,
+	mMassCenter20 = 9,
+	F1 = 10, 
+	F2 = 11 
+};
 
 class ObjectFeatureModel
 {
 public:
-	int featuresQuantity = 4;
+	static const int featuresQuantity = 11;
 	double getDistanceOfFeatures(ObjectFeatureModel comparedObject);
-	void updateFeature(FeatureIndex featureIndex, double value);
-	void contributeToFeature(FeatureIndex featureIndex, double contribution);
-	void contributeToM01(int contribution);
-	void contributeToM10(int contribution);
 
+	void setFeature(FeatureIndex featureIndex, double value);
+	void contributeToFeature(FeatureIndex featureIndex, double contribution);
 	double getFeature(FeatureIndex featureIndex);
-	long getM01();
-	long getM10();
 
 	std::string toString();
 
 	ObjectFeatureModel();
 	~ObjectFeatureModel();
-private: 
+private:
 	std::map<int, double> featuresValueMap;
-	long m01;
-	long m10;
+	std::vector<FeatureIndex> classificationFeatures { FeatureIndex::F1, FeatureIndex::F2 };
 };
 
 #endif // !OBJECT_FEATURE_MODEL

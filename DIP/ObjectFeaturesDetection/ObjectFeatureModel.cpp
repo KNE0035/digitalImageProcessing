@@ -4,9 +4,6 @@
 
 ObjectFeatureModel::ObjectFeatureModel()
 {
-	this->m01 = 0;
-	this->m10 = 0;
-
 	for (int i = 1; i <= this->featuresQuantity; i++) {
 		this->featuresValueMap[i] = 0;
 	}
@@ -17,34 +14,16 @@ double ObjectFeatureModel::getDistanceOfFeatures(ObjectFeatureModel comparedObje
 	return 0.0;
 }
 
-void ObjectFeatureModel::updateFeature(FeatureIndex featureIndex, double value) {
+void ObjectFeatureModel::setFeature(FeatureIndex featureIndex, double value) {
 	this->featuresValueMap[featureIndex] = value;
-}
-
-
-
-void ObjectFeatureModel::contributeToFeature(FeatureIndex featureIndex, double contribution) {
-	this->featuresValueMap[featureIndex] = this->featuresValueMap[featureIndex] + contribution;
-}
-
-void ObjectFeatureModel::contributeToM01(int contribution) {
-	this->m01 += contribution;
-}
-
-void ObjectFeatureModel::contributeToM10(int contribution) {
-	this->m10 += contribution;
 }
 
 double ObjectFeatureModel::getFeature(FeatureIndex featureIndex) {
 	return this->featuresValueMap[featureIndex];
 }
 
-long ObjectFeatureModel::getM01() {
-	return m01;
-}
-
-long ObjectFeatureModel::getM10() {
-	return m10;
+void ObjectFeatureModel::contributeToFeature(FeatureIndex featureIndex, double contribution) {
+	this->featuresValueMap[featureIndex] = this->featuresValueMap[featureIndex] + contribution;
 }
 
 std::string ObjectFeatureModel::toString() {
@@ -53,8 +32,14 @@ std::string ObjectFeatureModel::toString() {
 	for (int i = 1; i <= this->featuresQuantity; i++) {
 		switch (i)
 		{
-			case FeatureIndex::area:
+			case FeatureIndex::m00:
 				ss << "Area: ";
+				break;
+			case  FeatureIndex::m01:
+				ss << "m01: ";
+				break;
+			case  FeatureIndex::m10:
+				ss << "m10: ";
 				break;
 			case  FeatureIndex::massCenterX:
 				ss << "mass center x: ";
@@ -65,13 +50,25 @@ std::string ObjectFeatureModel::toString() {
 			case  FeatureIndex::perimeter:
 				ss << "Perimeter: ";
 				break;
+			case  FeatureIndex::mMassCenter11:
+				ss << "mMassCenter11: ";
+				break;
+			case  FeatureIndex::mMassCenter02:
+				ss << "mMassCenter02: ";
+				break;
+			case  FeatureIndex::mMassCenter20:
+				ss << "mMassCenter20: ";
+				break;
+			case  FeatureIndex::F1:
+				ss << "F1: ";
+				break;
+			case  FeatureIndex::F2:
+				ss << "F2: ";
+				break;
 		}
 
 		ss << this->featuresValueMap[i] << ", ";
 	}
-
-	ss << "m01: " << this->m01;
-	ss << "m10: " << this->m10;
 	ss << "]";
 	return ss.str();
 }
