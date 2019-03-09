@@ -4,6 +4,9 @@
 
 ObjectFeatureModel::ObjectFeatureModel()
 {
+	this->maximumPointCoordinates = cv::Point(-1, -1);
+	this->minimumPointCoordinates = cv::Point(INT_MAX, INT_MAX);
+	this->minAreaOfAllRotations = INT_MAX;
 	for (int i = 1; i <= this->featuresQuantity; i++) {
 		this->featuresValueMap[i] = 0;
 	}
@@ -21,6 +24,20 @@ void ObjectFeatureModel::setFeature(FeatureIndex featureIndex, double value) {
 double ObjectFeatureModel::getFeature(FeatureIndex featureIndex) {
 	return this->featuresValueMap[featureIndex];
 }
+
+int ObjectFeatureModel::getMinAreaOfAllRotations() {
+	return minAreaOfAllRotations;
+}
+
+void ObjectFeatureModel::updateWrittenRectMinArea() {
+	int possibleNewMinArea = (maximumPointCoordinates.x - minimumPointCoordinates.x) * (maximumPointCoordinates.y - minimumPointCoordinates.y);
+	if (this->minAreaOfAllRotations > possibleNewMinArea) {
+		this->minAreaOfAllRotations = possibleNewMinArea;
+	}
+
+	this->maximumPointCoordinates = cv::Point(-1, -1);
+	this->minimumPointCoordinates = cv::Point(INT_MAX, INT_MAX);
+}		
 
 void ObjectFeatureModel::contributeToFeature(FeatureIndex featureIndex, double contribution) {
 	this->featuresValueMap[featureIndex] = this->featuresValueMap[featureIndex] + contribution;
@@ -71,6 +88,24 @@ std::string ObjectFeatureModel::toString() {
 	}
 	ss << "]";
 	return ss.str();
+}
+
+void ObjectFeatureModel::updateMinMaxPoints(cv::Point newPoint) {
+	if (maximumPointCoordinates.x < newPoint.x) {
+		maximumPointCoordinates.x = newPoint.x;
+	}
+
+	if (maximumPointCoordinates.y < newPoint.y) {
+		maximumPointCoordinates.y = newPoint.y;
+	}
+
+	if (minimumPointCoordinates.x > newPoint.x) {
+		minimumPointCoordinates.x = newPoint.x;
+	}
+
+	if (minimumPointCoordinates.y > newPoint.y) {
+		minimumPointCoordinates.y = newPoint.y;
+	}
 }
 
 ObjectFeatureModel::~ObjectFeatureModel()
