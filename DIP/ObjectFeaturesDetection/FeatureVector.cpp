@@ -6,21 +6,32 @@ FeatureVector::FeatureVector() {
 
 }
 
-FeatureVector::FeatureVector(FeatureIndex* featureIndices, int usedFeaturesCount) {
-	this->usedFeaturesCount = usedFeaturesCount;
-	this->usedFeaturesIndices = featureIndices;
-}
-
-FeatureVector::FeatureVector(ObjectFeatureModel objectFeatureModel, FeatureIndex* featureIndices, int usedFeaturesCount) : FeatureVector(featureIndices, usedFeaturesCount)
-{
-	for (int i = 0; i < this->usedFeaturesCount; i++) {
-		this->vector.push_back(objectFeatureModel.getFeature(this->usedFeaturesIndices[i]));
+FeatureVector::FeatureVector(int usedFeaturesCount) {
+	for (int i = 0; i < usedFeaturesCount; i++) {
+		this->vector.push_back(0.0);
 	}
 }
 
-double FeatureVector::euclidDistance(FeatureVector p2) {
-	int maxDimSize = std::max(this->vector.size(), p2.vector.size());
+FeatureVector::FeatureVector(ObjectFeatureModel objectFeatureModel, FeatureIndex* featureIndices, int usedFeaturesCount)
+{
+	this->usedFeaturesCount = usedFeaturesCount;
+	this->usedFeaturesIndices = featureIndices;
+	for (int i = 0; i < this->usedFeaturesCount; i++) {
+		this->vector.push_back(objectFeatureModel.getFeature(this->usedFeaturesIndices[i]));
+	}
 
+	this->possitionInImage = cv::Point2i(objectFeatureModel.getFeature(FeatureIndex::massCenterX), objectFeatureModel.getFeature(FeatureIndex::massCenterY));
+}
+
+cv::Point2i FeatureVector::getPossitionInImage() {
+	return this->possitionInImage;
+}
+
+void FeatureVector::setPossitionInImage(cv::Point2i point) {
+	this->possitionInImage = point;
+}
+
+double FeatureVector::euclidDistance(FeatureVector p2) {
 	double sumOfSquares = 0;
 
 	for (int i = 0; i < this->vector.size(); i++) {
@@ -73,7 +84,45 @@ std::string FeatureVector::toString() {
 	return oss.str();
 }
 
+bool FeatureVector::operator <(const FeatureVector& p2) const {
+	FeatureVector p1tmp = *this;
+	FeatureVector p2tmp = p2;
+	int maxDimSize = std::max(this->vector.size(), p2.vector.size());
+
+	FeatureVector zeroPoint(p1tmp.vector.size());
+
+	double dist1 = p1tmp.euclidDistance(zeroPoint);
+	double dist2 = p2tmp.euclidDistance(zeroPoint);
+
+	return dist1 < dist2;
+}
+
+void FeatureVector::enlargePointDimmension(int targetDimmension) {
+	while (this->vector.size() < targetDimmension) {
+		this->vector.push_back(0);
+	}
+}
+
+double* FeatureVector::toArray() {
+	double *array = &this->vector[0];
+	return array;
+}
+
+void FeatureVector::normalize() {
+	double dist = 0;
+	for (double x : this->vector) {
+		dist += pow(x, 2);
+	}
+
+	dist = sqrt(dist);
+
+	for (int i = 0; i < this->vector.size(); i++) {
+		this->vector[i] /= dist;
+	}
+}
 
 FeatureVector::~FeatureVector()
 {
 }
+
+

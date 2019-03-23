@@ -12,11 +12,6 @@ ObjectFeatureModel::ObjectFeatureModel()
 	}
 }
 
-
-double ObjectFeatureModel::getDistanceOfFeatures(ObjectFeatureModel comparedObject) {
-	return 0.0;
-}
-
 void ObjectFeatureModel::setFeature(FeatureIndex featureIndex, double value) {
 	this->featuresValueMap[featureIndex] = value;
 }
@@ -30,7 +25,8 @@ int ObjectFeatureModel::getMinAreaOfAllRotations() {
 }
 
 void ObjectFeatureModel::updateWrittenRectMinArea() {
-	int possibleNewMinArea = (maximumPointCoordinates.x - minimumPointCoordinates.x) * (maximumPointCoordinates.y - minimumPointCoordinates.y);
+	int possibleNewMinArea = std::abs(maximumPointCoordinates.x - minimumPointCoordinates.x) * std::abs(maximumPointCoordinates.y - minimumPointCoordinates.y);
+	
 	if (this->minAreaOfAllRotations > possibleNewMinArea) {
 		this->minAreaOfAllRotations = possibleNewMinArea;
 	}
@@ -107,9 +103,3 @@ void ObjectFeatureModel::updateMinMaxPoints(cv::Point newPoint) {
 		minimumPointCoordinates.y = newPoint.y;
 	}
 }
-
-ObjectFeatureModel::~ObjectFeatureModel()
-{
-}
-
-

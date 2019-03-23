@@ -23,10 +23,6 @@ class ObjectFeatureModel
 {
 public:
 	static const int featuresQuantity = 13;
-	cv::Point minimumPointCoordinates;
-	cv::Point maximumPointCoordinates;
-
-	double getDistanceOfFeatures(ObjectFeatureModel comparedObject);
 
 	void setFeature(FeatureIndex featureIndex, double value);
 	void contributeToFeature(FeatureIndex featureIndex, double contribution);
@@ -34,13 +30,13 @@ public:
 	void updateWrittenRectMinArea();
 	void updateMinMaxPoints(cv::Point newPoint);
 	int getMinAreaOfAllRotations();
-
 	std::string toString();
-
+	
 	ObjectFeatureModel();
-	~ObjectFeatureModel();
 private:
 	std::map<int, double> featuresValueMap;
+	cv::Point minimumPointCoordinates;
+	cv::Point maximumPointCoordinates;
 	int minAreaOfAllRotations;
 };
 

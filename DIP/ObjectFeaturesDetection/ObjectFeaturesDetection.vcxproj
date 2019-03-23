@@ -158,12 +158,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="backprop.h" />
     <ClInclude Include="FeatureVector.h" />
+    <ClInclude Include="kMeansAlg.h" />
     <ClInclude Include="ObjectFeatureModel.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="backprop.cpp" />
     <ClCompile Include="FeatureVector.cpp" />
+    <ClCompile Include="kMeansAlg.cpp" />
     <ClCompile Include="ObjectFeatureModel.cpp" />
     <ClCompile Include="ObjectFeaturesDetection.cpp" />
     <ClCompile Include="pch.cpp">
