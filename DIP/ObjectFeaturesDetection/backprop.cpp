@@ -191,13 +191,6 @@ double trainOneStep(NN * nn, double * input, int label, bool verbose) {
 	double error = backpropagation(nn, outVectorLabel);
 	delete[] outVectorLabel;
 
-	if (3 == getOutput(nn, false) && label == 3) {
-		printf("a");
-	}
-	else if(label == 3){
-		printf("h");
-	}
-
 	return error;
 }
 
