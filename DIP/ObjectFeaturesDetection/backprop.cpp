@@ -172,7 +172,7 @@ int getOutput( NN * nn, bool verbose )
         }
 	}
 	if(verbose) printf( " -> %d\n" , max_i);
-    if(nn->out[0] > nn->out[1] && nn->out[0] - nn->out[1] < 0.1) return 2;
+    //if(nn->out[0] > nn->out[1] && nn->out[0] - nn->out[1] < 0.1) return 2;
     return max_i;
 }
 
@@ -191,12 +191,12 @@ double trainOneStep(NN * nn, double * input, int label, bool verbose) {
 	double error = backpropagation(nn, outVectorLabel);
 	delete[] outVectorLabel;
 
-	/*if (3 == getOutput(nn, false) && label == 3) {
+	if (3 == getOutput(nn, false) && label == 3) {
 		printf("a");
 	}
 	else if(label == 3){
 		printf("h");
-	}*/
+	}
 
 	return error;
 }
