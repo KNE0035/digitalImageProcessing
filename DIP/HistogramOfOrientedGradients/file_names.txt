@@ -1,0 +1,9 @@
+file_names.txt
+HistogramOfOrientedGradients.cpp
+HistogramOfOrientedGradients.vcxproj
+HistogramOfOrientedGradients.vcxproj.filters
+HistogramOfOrientedGradients.vcxproj.user
+nn.yml
+pch.cpp
+pch.h
+x64
