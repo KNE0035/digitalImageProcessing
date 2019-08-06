@@ -23,6 +23,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ObjectFeaturesDetection", "
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HistogramOfOrientedGradients", "HistogramOfOrientedGradients\HistogramOfOrientedGradients.vcxproj", "{F36DED58-31F2-4CE9-827A-B9A6AA2470AB}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BulletHoleDetection", "BulletHoleDetection\BulletHoleDetection.vcxproj", "{51E449E1-B0F4-458A-8A82-032C39D97718}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -111,6 +113,14 @@ Global
 		{F36DED58-31F2-4CE9-827A-B9A6AA2470AB}.Release|x64.Build.0 = Release|x64
 		{F36DED58-31F2-4CE9-827A-B9A6AA2470AB}.Release|x86.ActiveCfg = Release|Win32
 		{F36DED58-31F2-4CE9-827A-B9A6AA2470AB}.Release|x86.Build.0 = Release|Win32
+		{51E449E1-B0F4-458A-8A82-032C39D97718}.Debug|x64.ActiveCfg = Debug|x64
+		{51E449E1-B0F4-458A-8A82-032C39D97718}.Debug|x64.Build.0 = Debug|x64
+		{51E449E1-B0F4-458A-8A82-032C39D97718}.Debug|x86.ActiveCfg = Debug|Win32
+		{51E449E1-B0F4-458A-8A82-032C39D97718}.Debug|x86.Build.0 = Debug|Win32
+		{51E449E1-B0F4-458A-8A82-032C39D97718}.Release|x64.ActiveCfg = Release|x64
+		{51E449E1-B0F4-458A-8A82-032C39D97718}.Release|x64.Build.0 = Release|x64
+		{51E449E1-B0F4-458A-8A82-032C39D97718}.Release|x86.ActiveCfg = Release|Win32
+		{51E449E1-B0F4-458A-8A82-032C39D97718}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
