@@ -172,7 +172,6 @@ int getOutput( NN * nn, bool verbose )
         }
 	}
 	if(verbose) printf( " -> %d\n" , max_i);
-    //if(nn->out[0] > nn->out[1] && nn->out[0] - nn->out[1] < 0.1) return 2;
     return max_i;
 }
 
