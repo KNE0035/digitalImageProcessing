@@ -11,7 +11,7 @@ ObjectFeatureModel::ObjectFeatureModel()
 		this->featuresValueMap[i] = 0;
 	}
 }
-
+ 
 void ObjectFeatureModel::setFeature(FeatureIndex featureIndex, double value) {
 	this->featuresValueMap[featureIndex] = value;
 }
