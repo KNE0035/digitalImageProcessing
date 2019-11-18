@@ -4,24 +4,13 @@
 #include "pch.h"
 #include <iostream>
 
-#include "opencv2/highgui/highgui.hpp"
-#include "opencv2/imgproc/imgproc.hpp"
-#include <stdio.h>
-#include <intsafe.h>
-#include <algorithm> 
-
 
 
 using namespace cv;
 using namespace std;
 
-int edgeThresh = 1;
 int lowThreshold = 10;
-int const max_lowThreshold = 100;
 int ratio = 2;
-int kernel_size = 3;
-RNG rng(12345);
-
 
 
 struct TargetFeatures {
@@ -59,31 +48,15 @@ int main()
 	cv::resize(sourceImg, sourceImg, cv::Size(), 0.25, 0.25);
 	cv::Mat thresholded;
 	cv::threshold(sourceImg, thresholded, 100, 255, 0);
-	GaussianBlur(sourceImg, targetImage, Size(9, 9), 2, 2);
+	blur(sourceImg, targetImage, Size(3, 3));
 	imshow("input", targetImage);
-	Mat kernel;
-	kernel_size = 3;
-	kernel = Mat::ones(kernel_size, kernel_size, CV_32F) / (float)(kernel_size*kernel_size);
 	imshow("canvasOutput", thresholded);
-	//GaussianBlur(targetImage, targetImage, Size(9, 9), 2, 2);
-	//filter2D(thresholded, thresholded, -1, kernel);
-	//cv::threshold(targetImage, targetImage, 100, 255, 0);
-	Canny(targetImage, targetImage, lowThreshold, lowThreshold*ratio, kernel_size);
-	
-	/*for (int y = 0; y < thresholded.rows; y++)
-	{
-		for (int x = 0; x < thresholded.cols; x++)
-		{
-			if (thresholded.at<uchar>(y, x) == 0) {
-				targetImage.at<uchar>(y, x) = 0;
-			}
-		}
-	}*/
-	
-	//filter2D(targetImage, targetImage, -1, kernel);
-	Mat kernel2 = cv::getStructuringElement(cv::MORPH_ELLIPSE, Point(6, 6));
+
+	Canny(targetImage, targetImage, lowThreshold, lowThreshold*ratio);
+
+	Mat dilatationKernel = cv::getStructuringElement(cv::MORPH_RECT, Size(3, 3));
 	cv::Mat dilated;
-	dilate(targetImage, dilated, kernel2);
+	dilate(targetImage, dilated, dilatationKernel);
 	imshow("dilated", dilated);
 
 	cv::Mat s = doIndexingOfObjects(thresholded, dilated);
@@ -186,29 +159,12 @@ void findNearestTargetCorners(TargetFeatures& targetObject, cv::Mat indexedImage
 	targetObject.rightTopCorner = findNearestTargetCorner(targetObject.index, targetObject.rightTopCorner, indexedImage, false, true, neigberhoodLength);
 	targetObject.leftBottomCorner = findNearestTargetCorner(targetObject.index, targetObject.leftBottomCorner, indexedImage, true, false, neigberhoodLength);
 	targetObject.rightBottomCorner = findNearestTargetCorner(targetObject.index, targetObject.rightBottomCorner, indexedImage, false, false, neigberhoodLength);
-	
-	for (int y = targetObject.leftTopCorner.y; y < targetObject.leftTopCorner.y + neigberhoodLength; y++)
-	{
-		for (int x = targetObject.leftTopCorner.x; x < targetObject.leftTopCorner.x + neigberhoodLength; x++)
-		{
-			if (indexedImage.at<int>(y, x) == targetObject.index) {
-
-				targetObject.leftTopCorner = Point2i(x, y);
-				cornerFound = true;
-				break;
-			}
-		}
-
-		if (cornerFound) {
-			break;
-		}
-	}
 }
 
 Point2i findNearestTargetCorner(int targetIndex, Point2i basePoint, cv::Mat indexedImage, bool goRightX, bool goBottomY, int neigberhoodLength) {
 	Point2i nearestCorner = basePoint;
 	bool cornerFound = false;
-	float minDistance = neigberhoodLength;
+	int minDistance = neigberhoodLength;
 	for (int y = 0; y < neigberhoodLength;  y++)
 	{
 		for (int x = 0; x < neigberhoodLength; x++)
@@ -397,40 +353,20 @@ std::vector<TargetFeatures> computeBasicFeaturesOfObjects(cv::Mat indexedImage, 
 				int currIndex = indexedImage.at<int>(y, x);
 				TargetFeatures* currObject = &mapOfObjectsFeatures[currIndex];
 				currObject->area++;
-				currObject->massCenterX = currObject->massCenterX +  x;
+				currObject->massCenterX = currObject->massCenterX + x;
 				currObject->massCenterY = currObject->massCenterY + y;
 
-				if (currObject->leftTopCorner.x > x) {
-					currObject->leftTopCorner.x = x;
-				}
+				currObject->leftTopCorner.x = std::min(currObject->leftTopCorner.x, x);
+				currObject->leftTopCorner.y = std::min(currObject->leftTopCorner.y, y);
+				
+				currObject->rightTopCorner.x = std::max(currObject->rightTopCorner.x, x);
+				currObject->rightTopCorner.y = std::min(currObject->rightTopCorner.y, y);
+				
+				currObject->leftBottomCorner.x = std::min(currObject->leftBottomCorner.x, x);
+				currObject->leftBottomCorner.y = std::max(currObject->leftBottomCorner.y, y);
 
-				if (currObject->leftTopCorner.y > y) {
-					currObject->leftTopCorner.y = y;
-				}
-
-				if (currObject->rightTopCorner.x < x) {
-					currObject->rightTopCorner.x = x;
-				}
-
-				if (currObject->rightTopCorner.y > y) {
-					currObject->rightTopCorner.y = y;
-				}
-
-				if (currObject->leftBottomCorner.x > x) {
-					currObject->leftBottomCorner.x = x;
-				}
-
-				if (currObject->leftBottomCorner.y < y) {
-					currObject->leftBottomCorner.y = y;
-				}
-
-				if (currObject->rightBottomCorner.x < x){
-					currObject->rightBottomCorner.x = x;
-				}		
-
-				if (currObject->rightBottomCorner.y < y) {
-					currObject->rightBottomCorner.y = y;
-				}
+				currObject->rightBottomCorner.x = std::max(currObject->rightBottomCorner.x, x);
+				currObject->rightBottomCorner.y = std::max(currObject->rightBottomCorner.y, y);
 			}
 		}
 	}
